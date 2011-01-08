@@ -11,18 +11,23 @@ require 'rake'
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "mucho_work"
-  gem.homepage = "http://github.com/aemadrid/mucho_work"
-  gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
-  gem.email = "aemadrid@gmail.com"
-  gem.authors = ["Adrian Madrid"]
-  # Include your dependencies below. Runtime dependencies are required when using your gem,
-  # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
-  #  gem.add_runtime_dependency 'jabber4r', '> 0.1'
-  #  gem.add_development_dependency 'rspec', '> 1.2.3'
+  gem.name              = "mucho_work"
+  gem.homepage          = "http://github.com/aemadrid/mucho_work"
+  gem.authors           = ["Adrian Madrid"]
+  gem.email             = ["aemadrid@gmail.com"]
+  gem.homepage          = "http://github.com/aemadrid/mucho_work/"
+  gem.summary           = %q{Getting distributed work done!}
+  gem.description       = %q{Distributing work through Hazelcast in a nice JRuby package.}
+  gem.platform          = "jruby"
+
+  gem.rubyforge_project = "mucho_work"
+
+  gem.files             = FileList['bin/*', 'lib/**/*.rb', 'jars/**/*', 'test/**/*.rb', '[A-Z]*'].to_a
+  gem.test_files        = Dir["test/test*.rb"]
+  gem.executables       = FileList['bin/*'].to_a
+  gem.require_paths     = ["lib"]
+
+  gem.add_dependency "hazelcast-client"
 end
 Jeweler::RubygemsDotOrgTasks.new
 
@@ -33,21 +38,14 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = true
 end
 
-require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-end
-
 task :default => :test
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+  version       = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "mucho_work #{version}"
+  rdoc.title    = "mucho_work #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
